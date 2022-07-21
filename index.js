@@ -9,7 +9,78 @@
  for you to use if you need it!
  */
 
-const allWagesFor = function () {
+function createEmployeeRecord(employeeArr){
+
+    let employeeRecord = {
+
+        firstName: employeeArr[0],
+        familyName: employeeArr[1],
+        title: employeeArr[2],
+        payPerHour: employeeArr[3],
+        timeInEvents: [],
+        timeOutEvents: []
+    }
+    return employeeRecord
+}
+
+function createEmployeeRecords(records){
+    let employeeRecords = records.map((arrayEmpl) =>  createEmployeeRecord(arrayEmpl));
+ 
+     return employeeRecords
+ }
+
+
+ function createTimeInEvent(dateStamp){
+    let [date, hour] = dateStamp.split(' ')
+ 
+    
+ 
+    let timeInObject = {
+     type: 'TimeIn',
+     hour: parseInt(hour),
+     date, 
+    }
+ 
+    this.timeInEvents.push(timeInObject)
+ 
+    return this
+    
+ }
+ 
+ function createTimeOutEvent( dateStamp){
+ 
+    let [date, hour] = dateStamp.split(' ')
+ 
+    let timeOutObject = {
+     type: 'TimeOut',
+     hour: parseInt(hour),
+     date,
+    }
+ 
+    this.timeOutEvents.push(timeOutObject)
+ 
+    return this
+ }
+ let cRecord = createEmployeeRecord(["Julius", "Caesar", "General", 1000])
+ 
+ function hoursWorkedOnDate(date){
+ 
+    let timeInDate = this.timeInEvents.find((e) => e.date === date)
+    let timeOutDate = this.timeOutEvents.find((e) => e.date === date)
+ 
+    let grossTime = (timeOutDate.hour - timeInDate.hour) / 100
+    return grossTime 
+ }
+ 
+ function wagesEarnedOnDate(date){
+ 
+    let hoursWorked = hoursWorkedOnDate.call(this, date)
+    let payRate = this.payPerHour
+ 
+    return parseInt(hoursWorked * payRate)
+ }
+
+ const allWagesFor = function () {
     const eligibleDates = this.timeInEvents.map(function (e) {
         return e.date
     })
@@ -20,4 +91,26 @@ const allWagesFor = function () {
 
     return payable
 }
+
+function findEmployeeByFirstName(srcArray, firstName){
+
+          return srcArray.find((e) => e.firstName === firstName)
+
+        
+}
+ 
+ function calculatePayroll(employeeRecords){
+
+    let allPayroll = employeeRecords.reduce(function(counter, employeeRecord){
+       return counter + allWagesFor.call(employeeRecord)
+ 
+    }, 0)
+ 
+    return allPayroll
+ 
+ }le
+
+
+
+
 
